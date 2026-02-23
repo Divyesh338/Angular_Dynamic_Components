@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="form">
+    <h1>To Do App</h1>
+    <form (ngSubmit)="addTask()" class="form">
+      <div class="form-row">
+        <label for="Task">
+          Enter Task:
+        </label>
+        <input type="text" autofocus class="input" name="task" placeholder="Enter Task" [(ngModel)]="task">
+        <button type="submit" class="btn">
+          {{isEditing ? 'Update' : 'Submit'}}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card-wrapper" *ngIf="taskList.length">
+  <div class="task-card" *ngFor="let task of taskList;trackBy:trackById">
+    <div class="card-content">
+      <p>{{task.id}}</p>
+      <p>{{task.title}}</p>
+    </div>
+
+    <div class="card-action">
+      <button class="edit-btn" (click)="editTask(task)">Edit</button>
+      <button class="delete-btn" (click)="deleteTask(task.id)">Delete</button>
+    </div>
+  </div>
+</div>

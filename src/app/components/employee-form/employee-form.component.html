@@ -1,0 +1,32 @@
+<input type="text" [formControl]="searchControl" placeholder="Search employee">
+
+<form [formGroup]="mainForm">
+
+  <div formArrayName="departments">
+    <div *ngFor="let dept of departments.controls; let i = index" [formGroupName]="i">
+
+      <h3>Department</h3>
+      <input formControlName="name" placeholder="Department Name">
+
+      <button type="button" (click)="addEmployee(i)">Add Employee</button>
+
+      <div formArrayName="employees">
+
+        <ng-container *ngFor="let emp of employees(i).controls; let j = index">
+
+          <div [formGroupName]="j" *ngIf="!searchControl.value || 
+                emp.get('name')?.value?.toLowerCase()
+                .includes(searchControl.value.toLowerCase())">
+
+            <input formControlName="name" placeholder="Employee Name">
+
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="tabs">
+    <button (click)="switchMode('login')" [class.active]="mode === 'login'">Login</button>
+    <button (click)="switchMode('register')" [class.active]="mode === 'register'">Registration</button>
+  </div>
+
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <div *ngFor="let field of fields;">
+      <label for="">{{field.label}}</label>
+      <input [type]="field.type" [formControlName]="field.name">
+
+      <div *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
+        <small *ngIf="form.get(field.name)?.errors?.['required']">
+          This field is Required.
+        </small>
+
+        <small *ngIf="form.get(field.name)?.errors?.['email']">
+          Invalid Email.
+        </small>
+
+        <small *ngIf="form.get(field.name)?.errors?.['mismatch']">
+          Password do not match.
+        </small>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
